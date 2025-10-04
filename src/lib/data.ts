@@ -1,6 +1,8 @@
-
 import type { VocabularyList, Word } from './types';
 import { addDays } from 'date-fns';
+import { n1Words } from './data/n1-words';
+import { n3Words } from './data/n3-words';
+import { n4Words } from './data/n4-words';
 
 const today = new Date();
 today.setHours(0,0,0,0);
@@ -351,6 +353,42 @@ const initialWords: Word[] = [
     easeFactor: 2.5,
     listId: 'list-3',
   })),
+  // JLPT N4 Words
+  ...n4Words.map((word, i) => ({
+    id: `word-n4-${i + 1}`,
+    text: word.text,
+    definition: word.definition,
+    exampleSentences: [],
+    lastReviewed: null,
+    reviewInterval: 1,
+    nextReviewDate: today,
+    easeFactor: 2.5,
+    listId: 'list-4',
+  })),
+    // JLPT N3 Words
+  ...n3Words.map((word, i) => ({
+    id: `word-n3-${i + 1}`,
+    text: word.text,
+    definition: word.definition,
+    exampleSentences: [],
+    lastReviewed: null,
+    reviewInterval: 1,
+    nextReviewDate: today,
+    easeFactor: 2.5,
+    listId: 'list-5',
+  })),
+    // JLPT N1 Words
+  ...n1Words.map((word, i) => ({
+    id: `word-n1-${i + 1}`,
+    text: word.text,
+    definition: word.definition,
+    exampleSentences: [],
+    lastReviewed: null,
+    reviewInterval: 1,
+    nextReviewDate: today,
+    easeFactor: 2.5,
+    listId: 'list-6',
+  })),
 ];
 
 const initialLists: VocabularyList[] = [
@@ -374,6 +412,27 @@ const initialLists: VocabularyList[] = [
     description: '100 high-frequency words required to pass the JLPT N2.',
     createdAt: new Date(),
     words: initialWords.filter(w => w.listId === 'list-3'),
+  },
+  {
+    id: 'list-4',
+    name: 'JLPT N4 Vocabulary',
+    description: '500 essential words for the JLPT N4 level.',
+    createdAt: new Date(),
+    words: initialWords.filter(w => w.listId === 'list-4'),
+  },
+  {
+    id: 'list-5',
+    name: 'JLPT N3 Vocabulary',
+    description: '500 essential words for the JLPT N3 level.',
+    createdAt: new Date(),
+    words: initialWords.filter(w => w.listId === 'list-5'),
+  },
+  {
+    id: 'list-6',
+    name: 'JLPT N1 Vocabulary',
+    description: '500 essential words for the JLPT N1 level.',
+    createdAt: new Date(),
+    words: initialWords.filter(w => w.listId === 'list-6'),
   },
 ];
 
@@ -469,3 +528,4 @@ export async function setExampleSentences(wordId: string, sentences: string[]): 
     word.exampleSentences = sentences;
     return Promise.resolve(word);
 }
+
