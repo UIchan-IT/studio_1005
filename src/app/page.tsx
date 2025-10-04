@@ -1,5 +1,4 @@
 import { DashboardStats } from '@/components/dashboard-stats';
-import { ProgressChart } from '@/components/progress-chart';
 import { getVocabularyLists } from '@/lib/data';
 import { isBefore } from 'date-fns';
 
@@ -24,7 +23,6 @@ export default async function DashboardPage() {
           wordsToReview={wordsToReview}
           wordsLearned={wordsLearned}
         />
-        <ProgressChart />
       </main>
     </div>
   );
