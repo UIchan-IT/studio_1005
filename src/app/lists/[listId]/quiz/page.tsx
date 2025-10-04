@@ -5,7 +5,7 @@ import { getVocabularyListById } from '@/lib/data';
 import type { QuizQuestion, VocabularyList, Word } from '@/lib/types';
 import { ArrowLeft, BrainCircuit } from 'lucide-react';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -59,14 +59,18 @@ function generateLocalQuiz(list: VocabularyList, numberOfQuestions: number): { q
     return { quiz };
 }
 
-export default function QuizPage({ params }: { params: { listId: string } }) {
+export default function QuizPage() {
+  const params = useParams();
+  const listId = params.listId as string;
+
   const [list, setList] = useState<VocabularyList | null>(null);
   const [quizData, setQuizData] = useState<{ quiz: QuizQuestion[] } | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadData() {
-      const fetchedList = await getVocabularyListById(params.listId);
+      if (!listId) return;
+      const fetchedList = await getVocabularyListById(listId);
       if (fetchedList) {
         setList(fetchedList);
         if (fetchedList.words.length >= 4) {
@@ -77,7 +81,7 @@ export default function QuizPage({ params }: { params: { listId: string } }) {
       setLoading(false);
     }
     loadData();
-  }, [params.listId]);
+  }, [listId]);
 
   if (loading) {
     return (
