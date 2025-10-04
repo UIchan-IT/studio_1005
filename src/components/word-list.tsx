@@ -10,7 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useActionState, useFormStatus } from 'react-dom';
 import { addWordAndExamples } from '@/lib/actions';
 import { PlusCircle, BookText, Loader2 } from 'lucide-react';
 import { useEffect, useRef } from 'react';
@@ -39,7 +39,7 @@ export function WordList({ list }: { list: VocabularyList }) {
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
   const addWordAction = addWordAndExamples.bind(null, list.id);
-  const [state, formAction] = useFormState(addWordAction, null);
+  const [state, formAction] = useActionState(addWordAction, null);
 
   useEffect(() => {
     if (state?.success) {

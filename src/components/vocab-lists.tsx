@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useActionState } from 'react';
 import type { VocabularyList } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Card, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -20,7 +20,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { createList } from '@/lib/actions';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useFormStatus } from 'react-dom';
 import { useToast } from '@/hooks/use-toast';
 
 function SubmitButton() {
@@ -36,7 +36,7 @@ export function VocabLists({ initialLists }: { initialLists: VocabularyList[] })
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
   
-  const [state, formAction] = useFormState(createList, null);
+  const [state, formAction] = useActionState(createList, null);
 
   useEffect(() => {
     if (state?.success) {
